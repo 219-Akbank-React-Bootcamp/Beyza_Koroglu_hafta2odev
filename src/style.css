@@ -1,0 +1,11 @@
+#first-row {
+  height: 200px;
+}
+#second-row {
+  height: 500px;
+}
+
+#user_list {
+  height: 100%;
+  overflow-y: auto;
+}
