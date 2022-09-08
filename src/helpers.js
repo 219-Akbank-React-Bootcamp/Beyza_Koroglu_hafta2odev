@@ -6,20 +6,10 @@ const formToKeyValuePair = (formId) => {
       prev[current.name] = current.value;
       return prev;
     }, {});
+  formValues.id = idGenerator();
   return formValues;
 };
 
-const addProduct = () => {
-  console.log("dfo")
-  const productValues = formToKeyValuePair("add_product");
-  products.push(productValues);
-
-  renderPage();
-}
-
-const addUser = () => {
-  const userValues = formToKeyValuePair("add_user");
-  users.push(userValues);
-
-  renderPage();
+const idGenerator = () => {
+  return String(Date.now());
 };
