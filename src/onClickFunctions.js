@@ -33,6 +33,13 @@ const productTransfer = () => {
   }
   receiver.balance -= transferProduct.price;
 
+  sender.activities.push(
+    `${receiver.fullName} isimli kullanıcıya ${transferProduct.price}₺ değerinde ${transferProduct.product} satıldı. Kalan Bakiye: ${sender.balance}`
+  );
+  receiver.activities.push(
+    `${sender.fullName} isimli kullanıcıdan ${transferProduct.price}₺ değerinde ${transferProduct.product} alındı. Kalan Bakiye: ${receiver.balance}₺`
+  );
+
   renderPage();
 };
 
@@ -49,6 +56,13 @@ const moneyTransfer = () => {
   else {
     sender.balance -= transferValues.transferMoney;
     receiver.balance += transferValues.transferMoney;
+
+    sender.activities.push(
+      `${receiver.fullName} isimli kullanıcıya ${transferValues.transferMoney}₺ gönderildi. Kalan Bakiye: ${sender.balance}`
+    );
+    receiver.activities.push(
+      `${sender.fullName} isimli kullanıcı tarafından ${transferValues.transferMoney}₺ gönderildi. Kalan Bakiye: ${receiver.balance}₺`
+    );
 
     renderPage();
   }
@@ -71,6 +85,9 @@ const sellProduct = (product) => {
     });
   }
   selectedUser.balance -= product.price;
+  selectedUser.activities.push(
+    `${product.price}₺ değerinde ${product.product} alındı. Kalan Bakiye: ${selectedUser.balance}₺`
+  );
   product.stock -= 1;
 
   if (product.stock <= 0) {
@@ -101,6 +118,10 @@ const addProduct = () => {
 
 const addUser = () => {
   const userValues = formToKeyValuePair("add_user");
+  userValues.activities = [];
+  userValues.activities.push(
+    `Kullanıcı eklendi. Bakiye: ${userValues.balance}₺`
+  );
   users.push(userValues);
 
   renderPage();

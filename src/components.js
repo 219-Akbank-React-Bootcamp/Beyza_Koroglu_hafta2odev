@@ -40,6 +40,14 @@ const renderTransfer = function () {
   });
 };
 
+const renderUserActivities = function (activity) {
+  let element = document.createElement("div");
+  element.innerHTML = activity;
+  element.classList.add("border");
+
+  return element;
+};
+
 const renderUserProducts = function (product) {
   let template = userOneProductTemplate;
 
@@ -56,31 +64,46 @@ const renderUserProducts = function (product) {
 const renderUserDetail = function () {
   if (selectedUser === "") return;
 
-  let template = `
-  <div id="user_detail">
-    <h4>${selectedUser.fullName} ${
+  let template = userDetailTemplate;
+  template = template.replace("{{fullName}}", selectedUser.fullName);
+  template = template.replace(
+    "{{category}}",
     userDetailCategory === "products" ? "Ürünleri" : "Hesap Hareketleri"
-  }</h4>
-  
-  </div>`;
+  );
 
   const user_detail_cover = document.getElementById("user_detail_cover");
   user_detail_cover.innerHTML = template;
 
-  if (userDetailCategory === "products") {
-    const user_detail = document.getElementById("user_detail");
-    let element = document.createElement("table");
-    element.classList.add("table");
-    element.innerHTML = userProductsTemplate;
-    user_detail.appendChild(element);
+  const detail_close_button = document.getElementById("detail_close_button");
+  detail_close_button.addEventListener("click", function () {
+    changeSelectedUser("");
+  });
 
-    const userProducts = document.getElementById("userProducts");
-    if (selectedUser.userProducts) {
-      selectedUser.userProducts.forEach((product) => {
+  const user_detail = document.getElementById("user_detail");
+  if (userDetailCategory === "products") {
+    if (selectedUser.userProducts && selectedUser.userProducts.length > 0) {
+      let element = document.createElement("table");
+      element.classList.add("table");
+      element.innerHTML = userProductsTemplate;
+      user_detail.appendChild(element);
+
+      const userProducts = document.getElementById("userProducts");
+      selectedUser.userProducts.reverse().forEach((product) => {
         const temp = renderUserProducts(product);
         userProducts.appendChild(temp);
       });
+      selectedUser.userProducts.reverse();
+    } else {
+      let element = document.createElement("div");
+      element.innerHTML = "Kullanıcıya ait ürün bulunmuyor.";
+      user_detail.appendChild(element);
     }
+  } else {
+    selectedUser.activities.reverse().forEach((activity) => {
+      user_detail.appendChild(renderUserActivities(activity));
+    });
+    selectedUser.activities.reverse();
+    console.log(selectedUser.activities);
   }
 };
 

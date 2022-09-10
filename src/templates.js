@@ -55,6 +55,11 @@ const userProductsTemplate = `
 
 </tbody>`;
 
+const userDetailTemplate = `
+<div id="user_detail" class="border">
+  <h4>{{fullName}} {{category}}</h4><button id="detail_close_button">X</button>
+</div>`;
+
 const productTemplate = `
 <tr>
   <td>{{product}}</td>
