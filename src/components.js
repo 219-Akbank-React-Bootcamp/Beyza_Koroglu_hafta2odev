@@ -20,6 +20,7 @@ const renderSelectOption = function (value, option) {
 const renderTransfer = function () {
   const transfer = document.getElementById("trasfer_cover");
   transfer.innerHTML = TransferTemplate;
+  transfer.classList.add("row");
 
   const moneySender = document.getElementById("moneySender");
   const moneyReceiver = document.getElementById("moneyReceiver");
@@ -103,7 +104,6 @@ const renderUserDetail = function () {
       user_detail.appendChild(renderUserActivities(activity));
     });
     selectedUser.activities.reverse();
-    console.log(selectedUser.activities);
   }
 };
 
@@ -118,14 +118,14 @@ const renderProduct = function (product) {
   const element = document.createElement("tr");
   element.innerHTML = template;
 
+  const td = document.createElement("td");
   if (selectedUser !== "" && selectedUser.balance >= product.price) {
-    const td = document.createElement("td");
-    td.innerHTML = `<button type="button" class="btn btn-link">Seçili kişiye sat</button>`;
+    td.innerHTML = `<button type="button" class="btn btn-link text-black">Seçili kişiye sat</button>`;
     td.addEventListener("click", function () {
       sellProduct(product);
     });
-    element.appendChild(td);
   }
+  element.appendChild(td);
   return element;
 };
 
