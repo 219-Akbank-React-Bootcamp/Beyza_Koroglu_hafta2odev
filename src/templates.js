@@ -1,3 +1,43 @@
+const TransferTemplate = `
+<div id="money_transfer" class="border">
+  <form id="money_transfer_form">
+    <select name="moneySender" id="moneySender">
+      <option value="ydfg">Gönderen</option>
+    </select>
+    <input
+      id="transferMoney"
+      name="transferMoney"
+      type="number"
+      placeholder="Gönderilecek miktar"
+    />
+    <select id="moneyReceiver" name="moneyReceiver">
+      <option value="">Alıcı</option>
+    </select>
+    <button onclick="javascript:moneyTransfer()" type="button">
+      Gönder
+    </button>
+  </form>
+</div>
+<div id="product_transfer" class="border">
+  <form id="product_transfer_form">
+    <select
+      id="productSender"
+      name="productSender"
+    >
+      <option value="">Gönderen</option>
+    </select>
+    <select id="transferProduct" name="transferProduct">
+      <option value="">Ürünler</option>
+    </select>
+    <select id="productReceiver" name="productReceiver">
+      <option value="">Alıcı</option>
+    </select>
+    <button onclick="javascript:productTransfer()" type="button">
+      Gönder
+    </button>
+  </form>
+</div>`;
+
 const userOneProductTemplate = `
 <tr>
   <td>{{product}}</td>
@@ -80,7 +120,7 @@ const userFormTemplate = `
 const rootTemplate = `
 <div id="first-row" class="row border">
   <div id="user_form" class="col-3 border"></div>
-  <div class="col-6 border">Column</div>
+  <div id="trasfer_cover" class="col-6 border">Column</div>
   <div id="product_form" class="col-3 border"></div>
 </div>
 <div id="second-row" class="row border">

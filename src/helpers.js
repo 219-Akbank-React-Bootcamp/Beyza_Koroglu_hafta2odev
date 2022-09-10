@@ -1,7 +1,7 @@
 const formToKeyValuePair = (formId) => {
   const form = document.getElementById(formId);
   const formValues = Array.from(form.childNodes)
-    .filter((e) => e.tagName === "INPUT")
+    .filter((e) => e.tagName === "INPUT" || e.tagName === "SELECT")
     .reduce((prev, current) => {
       current.type === "number"
         ? (prev[current.name] = Number(current.value))

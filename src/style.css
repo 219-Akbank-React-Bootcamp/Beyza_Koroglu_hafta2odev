@@ -14,3 +14,11 @@
   height: 100%;
   overflow-y: auto;
 }
+
+#money_transfer {
+  height: 50%;
+}
+
+#product_transfer {
+  height: 50%;
+}

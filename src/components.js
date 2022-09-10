@@ -1,3 +1,45 @@
+const renderTransferProduct = function (senderID) {
+  const sender = users.find((user) => user.id === senderID);
+  const transferProduct = document.getElementById("transferProduct");
+
+  sender.userProducts.forEach((product) => {
+    transferProduct.appendChild(
+      renderSelectOption(product.id, product.product)
+    );
+  });
+};
+
+const renderSelectOption = function (value, option) {
+  const element = document.createElement("option");
+  element.innerHTML = option;
+  element.setAttribute("value", value);
+
+  return element;
+};
+
+const renderTransfer = function () {
+  const transfer = document.getElementById("trasfer_cover");
+  transfer.innerHTML = TransferTemplate;
+
+  const moneySender = document.getElementById("moneySender");
+  const moneyReceiver = document.getElementById("moneyReceiver");
+
+  const productSender = document.getElementById("productSender");
+  productSender.addEventListener("change", function (e) {
+    renderTransferProduct(e.target.value);
+  });
+  const productReceiver = document.getElementById("productReceiver");
+
+  users.forEach((user) => {
+    if (user.balance > 0)
+      moneySender.appendChild(renderSelectOption(user.id, user.fullName));
+    moneyReceiver.appendChild(renderSelectOption(user.id, user.fullName));
+    if (user.userProducts && user.userProducts.length > 0)
+      productSender.appendChild(renderSelectOption(user.id, user.fullName));
+    productReceiver.appendChild(renderSelectOption(user.id, user.fullName));
+  });
+};
+
 const renderUserProducts = function (product) {
   let template = userOneProductTemplate;
 
@@ -132,6 +174,7 @@ const renderPage = function () {
   renderUserList();
   renderProductList();
   renderUserDetail();
+  renderTransfer();
 };
 
 renderPage();
